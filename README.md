@@ -1,5 +1,9 @@
 # Django-app
 
+## Description
+
+This is a simple Django application that uses PostgreSQL as the database backend.
+
 ## Running without docker-compose
 
 ### first pull the PostgreSQL image from Docker Hub by running the following command:
@@ -48,5 +52,27 @@ docker build -t django-app .
 docker run -p 8080:8080 my-django-app
 ```
 
-### Now you can access the Django application by visiting http://localhost:8080 in your web browser.
+## Running with docker-compose
 
+### Update the database settings in the settings.py file:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydb',
+        'USER': 'myuser',
+        'PASSWORD': 'mypassword',
+        'HOST': 'db',
+        'PORT': '5432',
+    }
+}
+```
+
+### Start the docker-compose stack by running the following command:
+
+```bash
+docker-compose up -d --build
+```
+
+## Finally, you can access the Django application by visiting http://localhost:8080 in your web browser.

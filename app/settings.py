@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'mydb',
         'USER': 'myuser',
         'PASSWORD': 'mypassword',
-        'HOST': '172.17.0.2', # change this to your database server IP
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
