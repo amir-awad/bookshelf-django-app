@@ -75,4 +75,39 @@ DATABASES = {
 docker-compose up -d --build
 ```
 
+### To test the connection to the database, follow these steps:
+
+#### Enter the web container bash shell by running the following command:
+
+```bash
+docker compose exec web bash
+```
+
+#### Run the following command to start the Django shell:
+
+```bash
+python manage.py shell
+```
+
+#### Run the following commands to test the connection to the database:
+
+```bash
+import socket
+
+def test_connection(host, port):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = sock.connect_ex((host, port))
+    sock.close()
+    return result
+
+host = 'db'
+port = 5432
+
+result = test_connection(host, port)
+if result == 0:
+    print(f"Successfully connected to {host}:{port}")
+else:
+    print(f"Failed to connect to {host}:{port}")
+```
+
 ## Finally, you can access the Django application by visiting http://localhost:8080 in your web browser.
