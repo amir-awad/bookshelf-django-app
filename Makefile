@@ -1,4 +1,4 @@
-.PHONY: bash shell up down destroy
+.PHONY: bash shell build up down destroy
 
 bash:
 	docker compose exec web bash
