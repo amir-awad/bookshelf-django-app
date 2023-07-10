@@ -111,3 +111,20 @@ else:
 ```
 
 ## Finally, you can access the Django application by visiting http://localhost:8080 in your web browser.
+
+### Here is an example of the .env and .env-postgres files:
+
+.env:
+
+```bash
+Django_PORT=8080
+POSTGRES_PORT=5432
+```
+
+.env-postgres:
+
+```bash
+POSTGRES_PASSWORD=mypassword
+POSTGRES_USER=myuser
+POSTGRES_DB=mydb
+```
