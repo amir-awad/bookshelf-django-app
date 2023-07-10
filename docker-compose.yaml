@@ -9,7 +9,7 @@ services:
       - "${Django_PORT}:${Django_PORT}"
     healthcheck:
       test: curl --fail -s http://localhost:8080/ || exit 1
-      interval: 3s
+      interval: 30s
       timeout: 30s
       retries: 3
     depends_on:
