@@ -23,5 +23,18 @@ services:
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
 
+  pgAdmin:
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "${PGADMIN_PORT_LOCAL}:${PGADMIN_PORT_CONTAINER}"
+    env_file:
+      - .env-pgadmin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
 volumes:
   postgres_data:
+  pgadmin_data:
