@@ -7,7 +7,7 @@ shell:
 	docker compose exec web python
 
 build:
-	docker-compose --env-file .env up -d
+	docker-compose --env-file .env up -d --build
 up:
 	docker-compose up
 
