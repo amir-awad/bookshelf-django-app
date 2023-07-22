@@ -1,0 +1,102 @@
+{% extends "base.html" %} {% block content %}
+<div class="content-section">
+  <form
+    id="updateBook"
+    method="POST"
+    action="{% url 'update_book_api' book.id %}"
+  >
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Book Name</label>
+      <input
+        class="form-control"
+        type="text"
+        name="book-name"
+        id="book-name"
+        value="{{ book.name }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input
+        class="form-control"
+        type="text"
+        name="book-description"
+        id="book-description"
+        value="{{ book.description }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="authors">Authors</label>
+      <small class="form-text text-muted"
+        >Enter a comma-separated list of authors (i.e.
+        amir,ahmed,mohamed)</small
+      >
+      <input
+        class="form-control"
+        type="text"
+        name="book-authors"
+        id="book-authors"
+        value="{% for author in book.author.all %}{{ author.username }}{% if not forloop.last %},{% endif %}{% endfor %}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Update Book</button>
+    </div>
+  </form>
+  <form
+    id="deleteBook"
+    action="{% url 'delete_book_api' book.id %}"
+    method="POST"
+  >
+    {% csrf_token %}
+    <div class="form-group">
+      <button class="btn btn-outline-danger" type="submit">Delete Book</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document
+    .getElementById("updateBook")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+
+      fetch(this.action, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          window.location.href = "{% url 'login' %}";
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+        });
+    });
+
+  document
+    .getElementById("deleteBook")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const formData = new FormData(this);
+
+      console.log("delete form submitted");
+      fetch(this.action, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          window.location.href = "{% url 'login' %}";
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+        });
+    });
+</script>
+{% endblock content %}

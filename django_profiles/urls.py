@@ -15,8 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from Authors import views as authors_views
+from BookShelf import views as bookshelf_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('BookShelf.urls')),
+    path('', authors_views.login, name='login'),
+    path('login/', authors_views.login, name='login'),
+    path('login_api/', authors_views.login_api, name='login_api'),
+    path('logout/', authors_views.logout, name='logout'),
+    path('register/', authors_views.register, name='register'),
+    path('register_api/', authors_views.register_api, name='register_api'),
+    path('add_book/', bookshelf_views.add_book, name='add_book'),
+    path('add_book_api/', bookshelf_views.add_book_api, name='add_book_api'),
+    path('update_book_api/<int:book_id>', bookshelf_views.update_book_api, name='update_book_api'),
+    path('update_book/<int:book_id>', bookshelf_views.update_book, name='update_book'),
+    path('delete_book_api/<int:book_id>', bookshelf_views.delete_book_api, name='delete_book_api'),
 ]

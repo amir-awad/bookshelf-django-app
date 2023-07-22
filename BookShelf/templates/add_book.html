@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block content %}
+<div class="content-section">
+  <form id="addBook" method="POST" action="{% url 'add_book_api' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Book Name</label>
+      <input
+        class="form-control"
+        type="text"
+        name="book-name"
+        id="book-name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="description">description</label>
+      <input
+        class="form-control"
+        type="text"
+        name="book-description"
+        id="book-description"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="authors">Authors</label>
+      <small class="form-text text-muted"
+        >Enter a comma separated list of authors (i.e. amir,ahmed,mohamed)
+      </small>
+      <input
+        class="form-control"
+        type="text"
+        name="book-authors"
+        id="book-authors"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Add Book</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document
+    .getElementById("addBook")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+
+      fetch("/add_book_api/", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          window.location.href = "{% url 'login' %}";
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+        });
+    });
+</script>
+
+{% endblock content %}
