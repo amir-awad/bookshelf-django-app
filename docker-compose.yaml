@@ -3,7 +3,6 @@ version: "3.10"
 services:
   web:
     build: .
-    command: celery -A django_profiles worker --loglevel=info
     volumes:
       - .:/code
     ports:
@@ -43,10 +42,19 @@ services:
       RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
       RABBITMQ_DEFAULT_USER: "user"
       RABBITMQ_DEFAULT_PASS: "password"
-      RABBITMQ_DEFAULT_VHOST: "/"
+      RABBITMQ_DEFAULT_VHOST: "rabbitmq"
     ports:
       - "5673:5672"
       - "15673:15672"
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A django_profiles worker -l info
+    depends_on:
+      - db
+      - rabbitmq
 
 volumes:
   postgres_data:

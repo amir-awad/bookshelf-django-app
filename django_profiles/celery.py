@@ -12,4 +12,4 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
 
-app.conf.broker_url = 'amqp://user:password@rabbitmq:5672//'
+app.conf.broker_url = 'amqp://user:password@rabbitmq:5672/rabbitmq'
