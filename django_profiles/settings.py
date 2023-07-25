@@ -145,3 +145,5 @@ REST_FRAMEWORK = {
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_AGE = 3600  # Set the session timeout to 1 hour (in seconds).
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

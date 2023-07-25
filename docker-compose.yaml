@@ -3,6 +3,7 @@ version: "3.10"
 services:
   web:
     build: .
+    command: celery -A django_profiles worker --loglevel=info
     volumes:
       - .:/code
     ports:
@@ -34,6 +35,18 @@ services:
       - .env-pgadmin
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: "my-rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "password"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "5673:5672"
+      - "15673:15672"
 
 volumes:
   postgres_data:
